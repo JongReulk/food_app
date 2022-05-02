@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:food_app/food_detail.dart';
 
 import 'data/recipe.dart';
 
@@ -10,22 +11,25 @@ class FoodMain extends StatefulWidget {
 }
 
 class _FoodMainState extends State<FoodMain> {
-  List<Recipe> recipes = [
-    Recipe('비빔밥', 'assets/bibimbap.jpg', '2', 3.0),
-    Recipe('비빔밥', 'assets/bibimbap.jpg', '2', 3.0),
-    Recipe('비빔밥', 'assets/bibimbap.jpg', '2', 3.0),
-    Recipe('비빔밥', 'assets/bibimbap.jpg', '2', 3.0),
-  ];
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.amberAccent,
       appBar: AppBar(
         title: Text('FOOD RECIPE'),
-        leading: Icon(Icons.food_bank_rounded),
+        actions: [Icon(Icons.food_bank_rounded),],
       ),
       body: ListView.builder(itemBuilder: (context, index) {
-        print(recipes[index]);
-        return RecipeCard(recipes[index]);
+
+        return GestureDetector(
+          onTap: () {
+            Navigator.of(context).push(MaterialPageRoute(builder: (context){
+              return FoodDetail(recipes: recipes[index]);
+            }));
+          },
+          child: RecipeCard(recipes[index]),
+        );
       },itemCount: recipes.length,)
     );
   }
