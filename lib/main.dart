@@ -37,6 +37,7 @@ class FoodLobby extends StatelessWidget {
         child: Center(
           child: Column(
             children: [
+              Text('맛있게 먹자', style: TextStyle(fontFamily: MyfontFamily.GangWonLight, fontSize: 20, fontWeight: FontWeight.w500),),
               IconButton(
                 iconSize: 100.0,
                 color: Colors.green,

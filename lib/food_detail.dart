@@ -2,6 +2,7 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/data/recipe.dart';
 import 'package:food_app/style/font.dart';
+import 'package:youtube_player_flutter/youtube_player_flutter.dart';
 
 class FoodDetail extends StatefulWidget {
   final Recipe recipes;
@@ -12,6 +13,30 @@ class FoodDetail extends StatefulWidget {
 }
 
 class _FoodDetailState extends State<FoodDetail> {
+  late YoutubePlayerController _controller;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = YoutubePlayerController(
+      initialVideoId: widget.recipes.youtubeUrl,
+      flags: YoutubePlayerFlags(
+        autoPlay: false,
+      )
+    );
+  }
+
+  @override
+  void deactivate() {
+    super.deactivate();
+    _controller.pause();
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _controller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +152,6 @@ class _FoodDetailState extends State<FoodDetail> {
                 mainAxisAlignment: MainAxisAlignment.start,
               ),
 
-
               Padding(
                 padding: const EdgeInsets.all(10.0),
                 child: Row(
@@ -156,11 +180,29 @@ class _FoodDetailState extends State<FoodDetail> {
                           ),
                         );
                       },itemCount: widget.recipes.step.length,),
-                    )
-
+                    ),
                   ],
                 ),
               ),
+
+              Row(
+                children: [
+                  Text('\t관련 영상', style: TextStyle(fontFamily: MyfontFamily.GangwonBold, fontWeight: FontWeight.w500),textScaleFactor: 2),
+                  Text(' Youtube', style: TextStyle(fontFamily: MyfontFamily.GangWonLight, fontWeight: FontWeight.w200),textScaleFactor: 1.5),
+                ],
+                mainAxisAlignment: MainAxisAlignment.start,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: YoutubePlayerBuilder(player: YoutubePlayer(controller: _controller), builder: (context, player) {
+                  return Column(
+                    children: [
+                      player,
+                      Text('비빔밥 만들기 끝!!',style: informationStyle,),
+                    ],
+                  );
+                }),
+              )
             ],
           ),
         ),

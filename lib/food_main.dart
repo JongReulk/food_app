@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/food_detail.dart';
+import 'package:food_app/style/font.dart';
 
 import 'data/recipe.dart';
 
@@ -46,7 +47,7 @@ class _FoodMainState extends State<FoodMain> {
             SizedBox(
               height: 10,
             ),
-            Text(recipe.label, style: TextStyle(fontSize: 25, fontWeight: FontWeight.bold),),
+            Text(recipe.label, style: TextStyle(fontSize: 30, fontFamily: MyfontFamily.GangWonTT),),
           ],
         ),
       ),
