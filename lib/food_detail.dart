@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:food_app/data/recipe.dart';
 import 'package:food_app/style/font.dart';
@@ -71,6 +72,14 @@ class _FoodDetailState extends State<FoodDetail> {
                 ),
               ),
               SizedBox(height: 10,),
+
+              Row(
+                children: [
+                  Text('\t재료', style: TextStyle(fontFamily: MyfontFamily.GangwonBold, fontWeight: FontWeight.w500),textScaleFactor: 2),
+                  Text(' Ingredients', style: TextStyle(fontFamily: MyfontFamily.GangWonLight, fontWeight: FontWeight.w200),textScaleFactor: 1.5),
+                ],
+                mainAxisAlignment: MainAxisAlignment.start,
+              ),
               
               Container(
                 //height: 150,
@@ -87,7 +96,7 @@ class _FoodDetailState extends State<FoodDetail> {
                             ListView.builder(shrinkWrap: true,itemBuilder: (context, index) {
                               IngredientsDetail ingredients = widget.recipes.ingredientsDetail[index];
                               return Text('${ingredients.name}\t${ingredients.measure}',style: informationStyle,);
-                            }, 
+                            },
                               padding: EdgeInsets.all(10),
                               itemCount: widget.recipes.ingredientsDetail.length,)
                           ],
@@ -105,10 +114,52 @@ class _FoodDetailState extends State<FoodDetail> {
                           ],
                           crossAxisAlignment: CrossAxisAlignment.start,
                         ),
-                      )
+                      ),
                     ],
                   ),
-                )
+                ),
+              ),
+              Row(
+                children: [
+                  Text('\t조리순서', style: TextStyle(fontFamily: MyfontFamily.GangwonBold, fontWeight: FontWeight.w500),textScaleFactor: 2),
+                  Text(' Steps', style: TextStyle(fontFamily: MyfontFamily.GangWonLight, fontWeight: FontWeight.w200),textScaleFactor: 1.5),
+                ],
+                mainAxisAlignment: MainAxisAlignment.start,
+              ),
+
+
+              Padding(
+                padding: const EdgeInsets.all(10.0),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: ListView.builder(shrinkWrap: true,
+                        physics: NeverScrollableScrollPhysics(),
+                        itemBuilder: (context, index) {
+                        Steps step = widget.recipes.step[index];
+                        return Padding(
+                          padding: const EdgeInsets.all(15.0),
+                          child: Row(
+                            children: [
+                              FloatingActionButton(onPressed: () {},
+                                heroTag: step.num.toString(),
+                                child: Text(step.num.toString(), style: TextStyle(color: Colors.white, fontSize: 30, fontStyle: FontStyle.italic),),
+                                elevation: 0.1,
+                              ),
+                              SizedBox(width: 10,),
+                              Flexible(
+                                child: Text(
+                                  step.step, style: TextStyle(fontFamily: MyfontFamily.GangWonLight, fontWeight: FontWeight.w300, fontSize: 20),
+                                ),
+                              )
+                            ],
+                          ),
+                        );
+                      },itemCount: widget.recipes.step.length,),
+                    )
+
+                  ],
+                ),
               ),
             ],
           ),
@@ -149,3 +200,4 @@ final informationStyle = TextStyle(
   fontFamily: MyfontFamily.GangWonLight,
   letterSpacing: 1
 );
+
