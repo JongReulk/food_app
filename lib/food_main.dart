@@ -11,7 +11,20 @@ class FoodMain extends StatefulWidget {
   State<FoodMain> createState() => _FoodMainState();
 }
 
-class _FoodMainState extends State<FoodMain> {
+class _FoodMainState extends State<FoodMain> with SingleTickerProviderStateMixin{
+  late TabController _tabcontroller;
+
+  @override
+  void initState() {
+    super.initState();
+    _tabcontroller = TabController(length: 2, vsync: this);
+  }
+
+  @override
+  void dispose() {
+    super.dispose();
+    _tabcontroller.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {

@@ -175,8 +175,9 @@ class _FoodDetailState extends State<FoodDetail> {
                                 child: Text(
                                   step.step, style: TextStyle(fontFamily: MyfontFamily.GangWonLight, fontWeight: FontWeight.w300, fontSize: 20),
                                 ),
-                              )
+                              ),
                             ],
+                            crossAxisAlignment: CrossAxisAlignment.start,
                           ),
                         );
                       },itemCount: widget.recipes.step.length,),
@@ -198,7 +199,11 @@ class _FoodDetailState extends State<FoodDetail> {
                   return Column(
                     children: [
                       player,
-                      Text('비빔밥 만들기 끝!!',style: informationStyle,),
+                      Padding(
+                        padding: const EdgeInsets.all(10.0),
+                        child: Text(widget.recipes.label+
+                          ' 만들기 끝!!',style: informationStyle,),
+                      ),
                     ],
                   );
                 }),
