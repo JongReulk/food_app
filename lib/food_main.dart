@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:food_app/food_detail.dart';
+import 'package:food_app/food_firsttab.dart';
+import 'package:food_app/food_secondtab.dart';
+import 'package:food_app/food_thirdtab.dart';
 import 'package:food_app/style/font.dart';
 
 import 'data/recipe.dart';
@@ -17,7 +20,7 @@ class _FoodMainState extends State<FoodMain> with SingleTickerProviderStateMixin
   @override
   void initState() {
     super.initState();
-    _tabcontroller = TabController(length: 2, vsync: this);
+    _tabcontroller = TabController(length: 3, vsync: this);
   }
 
   @override
@@ -29,42 +32,24 @@ class _FoodMainState extends State<FoodMain> with SingleTickerProviderStateMixin
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.amberAccent,
-      appBar: AppBar(
-        title: Text('FOOD RECIPE'),
-        actions: [Icon(Icons.food_bank_rounded),],
-      ),
-      body: ListView.builder(itemBuilder: (context, index) {
-
-        return GestureDetector(
-          onTap: () {
-            Navigator.of(context).push(MaterialPageRoute(builder: (context){
-              return FoodDetail(recipes: recipes[index]);
-            }));
-          },
-          child: RecipeCard(recipes[index]),
-        );
-      },itemCount: recipes.length,)
-    );
-  }
-
-  Widget RecipeCard(Recipe recipe) {
-    return Card(
-      elevation: 8.0,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(8.0)),
-      child: Padding(
-        padding: const EdgeInsets.all(10.0),
-        child: Column(
-          children: [
-            Image.asset(recipe.imageUrl),
-            SizedBox(
-              height: 10,
-            ),
-            Text(recipe.label, style: TextStyle(fontSize: 30, fontFamily: MyfontFamily.GangWonTT),),
-          ],
+        backgroundColor: Colors.amberAccent,
+        appBar: AppBar(
+          title: Text('FOOD RECIPE'),
+          actions: [Icon(Icons.food_bank_rounded),],
         ),
-      ),
-    );
+        body: TabBarView(
+          children: <Widget>[FoodFirstTab(), FoodSecondTab(), FoodThirdTab()],
+          controller: _tabcontroller,),
+        bottomNavigationBar: TabBar(
+          indicatorColor: Colors.pink,
+          indicatorSize: TabBarIndicatorSize.tab,
+          tabs: <Tab>[
+            Tab(icon: Icon(Icons.image), text: ('MENU'),),
+            Tab(icon: Icon(Icons.list_alt), text: ('LIST'),),
+            Tab(icon: Icon(Icons.video_camera_back), text: ('VIDEO'),)
+          ],
+          controller: _tabcontroller,));
   }
+
 }
 
